@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome - Digital Health Management</title>
+  <link rel="stylesheet" href="welcome.css">
+</head>
+<body>
+  <div class="top-right">
+    <button class="next-button" id="nextBtn">NEXT</button>
+    <div class="profile-dropdown">
+      <img src="profile-icon.png" alt="Profile" class="profile-icon" id="profileIcon">
+      <div class="dropdown-content" id="profileDropdown">
+        <a href="#">View Profile</a>
+        <a href="#">Logout</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="welcome-message" id="welcomeMessage"></div>
+  <div class="motivational-message" id="motivationalMessage"></div>
+
+  <div class="features-grid" id="featuresGrid"></div>
+
+  <script>
+    // Language translations
+    const translations = {
+      "English": {
+        welcome: "Hello {name}, Welcome to Digital Health Management System",
+        motivational: "Your health is your wealth. Keep track of it and stay strong every day.",
+        features: [
+          {title: "Health Records", desc: "Maintain and access your complete health records in one place for better care."},
+          {title: "Public Health Surveillance", desc: "Monitor and prevent diseases effectively for community safety."},
+          {title: "Admin/Health Worker Feature", desc: "Tools to help health workers manage patients efficiently."},
+          {title: "Health Access", desc: "Ensure everyone has easy access to essential healthcare services."},
+          {title: "Fair and Inclusive Healthcare", desc: "Promoting equality in healthcare access for all individuals."},
+          {title: "Healthy Diet Plan", desc: "Track nutrition and create personalized diet plans for better health."}
+        ]
+      },
+      "Malayalam": {
+        welcome: "ഹലോ {name}, ഡിജിറ്റൽ ഹെൽത്ത് മാനേജ്‌മെന്റ് സിസ്റ്റത്തിലേക്ക് സ്വാഗതം",
+        motivational: "നിങ്ങളുടെ ആരോഗ്യം നിങ്ങളുടെ സമ്പത്ത് ആണ്. അത് നിരീക്ഷിക്കുക, എല്ലാ ദിവസവും ശക്തമായി ഇരിക്കുക.",
+        features: [
+          {title: "ആരോഗ്യ രേഖകൾ", desc: "മികച്ച പരിചരണത്തിനായി നിങ്ങളുടെ സമഗ്ര ആരോഗ്യ രേഖകൾ ഒരു സ്ഥലത്ത് സംരക്ഷിക്കുക."},
+          {title: "പബ്ലിക് ഹെൽത്ത് നിരീക്ഷണം", desc: "സമൂഹത്തിന്റെ സുരക്ഷയ്ക്കായി രോഗങ്ങൾ ഫലപ്രദമായി നിരീക്ഷിക്കുകയും തടയുകയും ചെയ്യുക."},
+          {title: "അഡ്മിൻ/ആരോഗ്യ പ്രവർത്തക സൗകര്യം", desc: "രോഗികളെ ഫലപ്രദമായി നിയന്ത്രിക്കാൻ ആരോഗ്യ പ്രവർത്തകർക്ക് സഹായിക്കുന്ന ടൂളുകൾ."},
+          {title: "ആരോഗ്യ ആക്‌സസ്", desc: "എല്ലാവർക്കും അടിസ്ഥാന ആരോഗ്യസേവനങ്ങളിലേക്ക് എളുപ്പമുള്ള പ്രവേശനം ഉറപ്പാക്കുക."},
+          {title: "ന്യായമായ ആരോഗ്യ പരിപാലനം", desc: "എല്ലാവർക്കും സമത്വപരമായ ആരോഗ്യ പരിപാലനം പ്രോത്സാഹിപ്പിക്കുന്നു."},
+          {title: "ആരോഗ്യകരമായ ഡയറ്റ് പ്ലാൻ", desc: "മികച്ച ആരോഗ്യത്തിനായി പോഷകങ്ങൾ നിരീക്ഷിക്കുകയും വ്യക്തിഗത ഡയറ്റ് പ്ലാൻ സൃഷ്ടിക്കുകയും ചെയ്യുക."}
+        ]
+      },
+      "Hindi": {
+        welcome: "नमस्ते {name}, डिजिटल स्वास्थ्य प्रबंधन प्रणाली में आपका स्वागत है",
+        motivational: "आपका स्वास्थ्य आपका धन है। इसे ट्रैक करें और हर दिन स्वस्थ रहें।",
+        features: [
+          {title: "स्वास्थ्य रिकॉर्ड", desc: "बेहतर देखभाल के लिए अपने संपूर्ण स्वास्थ्य रिकॉर्ड एक स्थान पर रखें।"},
+          {title: "सार्वजनिक स्वास्थ्य निगरानी", desc: "समुदाय की सुरक्षा के लिए रोगों की प्रभावी निगरानी और रोकथाम करें।"},
+          {title: "एडमिन/स्वास्थ्यकर्मी सुविधा", desc: "स्वास्थ्यकर्मियों को रोगियों का कुशलतापूर्वक प्रबंधन करने के लिए उपकरण।"},
+          {title: "स्वास्थ्य पहुँच", desc: "सुनिश्चित करें कि सभी को आवश्यक स्वास्थ्य सेवाओं तक आसान पहुँच मिले।"},
+          {title: "समान और समावेशी स्वास्थ्य सेवा", desc: "सभी व्यक्तियों के लिए स्वास्थ्य सेवा में समानता को बढ़ावा देना।"},
+          {title: "स्वस्थ आहार योजना", desc: "बेहतर स्वास्थ्य के लिए पोषण ट्रैक करें और व्यक्तिगत आहार योजनाएं बनाएं।"}
+        ]
+      },
+      "Telugu": {
+        welcome: "హలో {name}, డిజిటల్ హెల్త్ మేనేజ్‌మెంట్ సిస్టమ్‌కు స్వాగతం",
+        motivational: "మీ ఆరోగ్యం మీ సంపద. దీన్ని ట్రాక్ చేయండి మరియు ప్రతి రోజు బలంగా ఉండండి.",
+        features: [
+          {title: "హెల్త్ రికార్డులు", desc: "మరుగుపరిచే మంచి సంరక్షణ కోసం మీ పూర్తి ఆరోగ్య రికార్డులను ఒకే చోట ఉంచండి."},
+          {title: "పబ్లిక్ హెల్త్ సర్వెలియన్స్", desc: "సముదాయ సురక్ష కోసం వ్యాధులను సమర్థవంతంగా పర్యవేక్షించండి మరియు నివారించండి."},
+          {title: "అడ్మిన్/హెల్త్ వర్కర్ ఫీచర్", desc: "పేషెంట్లను సమర్థవంతంగా నిర్వహించడానికి హెల్త్ వర్కర్లకు ఉపకరణాలు."},
+          {title: "హెల్త్ యాక్సెస్", desc: "ప్రతి ఒక్కరికీ ముఖ్యమైన ఆరోగ్య సేవలకు సులభమైన ప్రాప్తి నిర్ధారించండి."},
+          {title: "న్యాయమైన మరియు సమగ్ర ఆరోగ్య పరిపాలన", desc: "అన్ని వ్యక్తుల కోసం ఆరోగ్య పరిపాలనలో సమానత్వాన్ని ప్రోత్సహించడం."},
+          {title: "ఆరోగ్యకరమైన డైట్ ప్లాన్", desc: "మంచి ఆరోగ్యానికి పోషకాలను ట్రాక్ చేయండి మరియు వ్యక్తిగత డైట్ ప్లాన్లు సృష్టించండి."}
+        ]
+      },
+      "Tamil": {
+        welcome: "ஹலோ {name}, டிஜிட்டல் ஹெல்த் மேனேஜ்மென்ட் சிஸ்டத்தில் உங்களை வரவேற்கின்றோம்",
+        motivational: "உங்கள் ஆரோக்கியம் உங்கள் செல்வம். அதை கண்காணிக்கவும், ஒவ்வொரு நாளும் ஆரோக்கியமாக இருங்கள்.",
+        features: [
+          {title: "சுகாதார பதிவுகள்", desc: "சிறந்த பராமரிப்புக்காக உங்கள் முழுமையான சுகாதார பதிவுகளை ஒரே இடத்தில் வைத்திருங்கள்."},
+          {title: "பொது சுகாதார கண்காணிப்பு", desc: "சமூக பாதுகாப்பிற்காக நோய்களை திறமையாக கண்காணித்து தடுப்பதற்கான நடவடிக்கைகள்."},
+          {title: "அட்மின்/சுகாதார பணியாளர் வசதி", desc: "நோயாளிகளை திறமையாக நிர்வகிக்க சுகாதார பணியாளர்களுக்கு உதவும் கருவிகள்."},
+          {title: "சுகாதார அணுகல்", desc: "அனைவரும் தேவையான சுகாதார சேவைகளை எளிதாக அணுக முடியும்."},
+          {title: "நியாயமான மற்றும் உள்ளடக்கமான சுகாதார பராமரிப்பு", desc: "அனைவருக்கும் சுகாதார அணுகலில் சமத்துவத்தை ஊக்குவிக்கிறது."},
+          {title: "ஆரோக்கிய உணவு திட்டம்", desc: "சிறந்த ஆரோக்கியத்திற்கு ஊட்டச்சத்து கண்காணிப்பு மற்றும் தனிப்பட்ட உணவு திட்டங்களை உருவாக்குங்கள்."}
+        ]
+      }
+    };
+
+    const lang = localStorage.getItem("selectedLanguage") || "English";
+    const userName = localStorage.getItem("userName") || "User";
+    const t = translations[lang];
+
+    // Set welcome and motivational messages
+    document.getElementById("welcomeMessage").innerText = t.welcome.replace("{name}", userName);
+    document.getElementById("motivationalMessage").innerText = t.motivational;
+
+    // Populate feature boxes
+    const featuresGrid = document.getElementById("featuresGrid");
+    t.features.forEach(f => {
+      const box = document.createElement("div");
+      box.classList.add("feature-box");
+      box.innerHTML = `<h3>${f.title}</h3><p style="margin-top:10px;font-weight:400;font-size:1em;">${f.desc}</p>`;
+      featuresGrid.appendChild(box);
+    });
+
+    // Profile dropdown
+    const profileIcon = document.getElementById("profileIcon");
+    const profileDropdown = document.getElementById("profileDropdown");
+    profileIcon.addEventListener("click", () => profileDropdown.classList.toggle("show"));
+
+    // NEXT button action
+    document.getElementById("nextBtn").addEventListener("click", () => {
+      alert("NEXT page functionality can be implemented here.");
+    });
+  </script>
+</body>
+</html>

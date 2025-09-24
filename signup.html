@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - Digital Health Management</title>
+  <link rel="stylesheet" type="text/css" href="sign-up.css">
+</head>
+<body>
+  <div class="signup-card">
+
+    <h1 id="signupTitle">Sign Up</h1>
+
+    <form id="signupForm">
+
+      <label id="fullNameLabel" for="fullname">Full Name:</label>
+      <input type="text" id="fullname" name="fullname" required><br><br>
+
+      <div class="age-gender">
+        <div class="age">
+          <label id="ageLabel" for="age">Age:</label>
+          <input type="number" id="age" name="age" required>
+        </div>
+
+        <div class="gender">
+          <label id="genderLabel" for="gender">Gender:</label>
+          <select id="gender" name="gender" required>
+            <option value="">Select</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+      <br>
+
+      <label id="emailLabel" for="email">Email ID:</label>
+      <input type="email" id="email" name="email" required><br><br>
+
+      <label id="phoneLabel" for="phone">Phone No:</label>
+      <input type="tel" id="phone" name="phone" required><br><br>
+
+      <!-- Username -->
+      <label id="userNameLabel" for="username">User Name:</label>
+      <input type="text" id="username" name="username" required><br><br>
+
+      <!-- Password -->
+      <label id="passwordLabel" for="password">Password:</label>
+      <div class="password-container">
+        <input type="password" id="password" name="password" required>
+        <span class="toggle-password" onclick="togglePassword('password')">&#128065;</span>
+      </div>
+
+      <!-- Confirm Password -->
+      <label id="confirmPasswordLabel" for="confirmPassword">Confirm Password:</label>
+      <div class="password-container">
+        <input type="password" id="confirmPassword" name="confirmPassword" required>
+        <span class="toggle-password" onclick="togglePassword('confirmPassword')">&#128065;</span>
+      </div>
+
+      <button type="submit" class="next-button" id="signupBtn">Sign Up</button>
+    </form>
+  </div>
+
+  <script>
+    const translations = {
+      "English": {
+        signupTitle: "Sign Up",
+        fullNameLabel: "Full Name:",
+        ageLabel: "Age:",
+        genderLabel: "Gender:",
+        emailLabel: "Email ID:",
+        phoneLabel: "Phone No:",
+        userNameLabel: "User Name:",
+        passwordLabel: "Password:",
+        confirmPasswordLabel: "Confirm Password:",
+        signupBtn: "Sign Up"
+      },
+      "Malayalam": {
+        signupTitle: "സൈൻ അപ്പ്",
+        fullNameLabel: "പൂർണ്ണ പേര്:",
+        ageLabel: "വയസ്:",
+        genderLabel: "ലിംഗം:",
+        emailLabel: "ഇമെയിൽ ഐഡി:",
+        phoneLabel: "ഫോൺ നമ്പർ:",
+        userNameLabel: "ഉപയോക്തൃ പേര്:",
+        passwordLabel: "പാസ്സ്‌വേർഡ്:",
+        confirmPasswordLabel: "പാസ്സ്‌വേർഡ് സ്ഥിരീകരിക്കുക:",
+        signupBtn: "സൈൻ അപ്പ് ചെയ്യുക"
+      },
+      "Hindi": {
+        signupTitle: "साइन अप करें",
+        fullNameLabel: "पूरा नाम:",
+        ageLabel: "आयु:",
+        genderLabel: "लिंग:",
+        emailLabel: "ईमेल आईडी:",
+        phoneLabel: "फोन नंबर:",
+        userNameLabel: "उपयोगकर्ता नाम:",
+        passwordLabel: "पासवर्ड:",
+        confirmPasswordLabel: "पासवर्ड की पुष्टि करें:",
+        signupBtn: "साइन अप करें"
+      },
+      "Telugu": {
+        signupTitle: "సైన్ అప్ చేయండి",
+        fullNameLabel: "పూర్తి పేరు:",
+        ageLabel: "వయస్సు:",
+        genderLabel: "లింగం:",
+        emailLabel: "ఇమెయిల్ ఐడి:",
+        phoneLabel: "ఫోన్ నంబర్:",
+        userNameLabel: "వాడుకరి పేరు:",
+        passwordLabel: "పాస్వర్డ్:",
+        confirmPasswordLabel: "పాస్వర్డ్ ధృవీకరణ:",
+        signupBtn: "సైన్ అప్ చేయండి"
+      },
+      "Tamil": {
+        signupTitle: "சைன் அப் செய்யவும்",
+        fullNameLabel: "முழுப் பெயர்:",
+        ageLabel: "வயது:",
+        genderLabel: "பாலினம்:",
+        emailLabel: "மின்னஞ்சல் ஐடி:",
+        phoneLabel: "தொலைபேசி எண்:",
+        userNameLabel: "பயனர் பெயர்:",
+        passwordLabel: "கடவுச்சொல்:",
+        confirmPasswordLabel: "கடவுச்சொல் உறுதி செய்யவும்:",
+        signupBtn: "சைன் அப் செய்யவும்"
+      }
+    };
+
+    const lang = localStorage.getItem("selectedLanguage") || "English";
+    const t = translations[lang];
+
+    document.getElementById("signupTitle").innerText = t.signupTitle;
+    document.getElementById("fullNameLabel").innerText = t.fullNameLabel;
+    document.getElementById("ageLabel").innerText = t.ageLabel;
+    document.getElementById("genderLabel").innerText = t.genderLabel;
+    document.getElementById("emailLabel").innerText = t.emailLabel;
+    document.getElementById("phoneLabel").innerText = t.phoneLabel;
+    document.getElementById("userNameLabel").innerText = t.userNameLabel;
+    document.getElementById("passwordLabel").innerText = t.passwordLabel;
+    document.getElementById("confirmPasswordLabel").innerText = t.confirmPasswordLabel;
+    document.getElementById("signupBtn").innerText = t.signupBtn;
+
+    // Toggle password visibility
+    function togglePassword(fieldId) {
+      const input = document.getElementById(fieldId);
+      if (input.type === "password") {
+        input.type = "text";
+      } else {
+        input.type = "password";
+      }
+    }
+
+    // Redirect to welcome.html on submit
+    const signupForm = document.getElementById("signupForm");
+    signupForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+      if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+      }
+
+      const userName = document.getElementById("fullname").value;
+      localStorage.setItem("userName", userName); // Save name
+      window.location.href = "welcome.html"; // Redirect
+    });
+  </script>
+</body>
+</html>

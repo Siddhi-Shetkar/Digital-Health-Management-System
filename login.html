@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Digital Health Management</title>
+  <link rel="stylesheet" type="text/css" href="loginn.css">
+</head>
+<body>
+  <div class="login-container">
+
+    <!-- Login Form with IDs for translations -->
+    <h1 id="loginTitle">Login</h1>
+
+    <form action="dashboard.html" method="post">
+      <label id="userLabel" for="userid">User ID:</label>
+      <input type="text" id="userid" name="userid" required><br><br>
+
+      <label id="passLabel" for="password">Password:</label>
+      <input type="password" id="password" name="password" required><br><br>
+
+      <button type="submit" class="next-button" id="loginBtn">Login</button>
+    </form>
+
+    <p id="signupText">Don't have an account? <a href="signup.html">Sign Up</a></p>
+
+  </div>
+
+  <script>
+    // Translations for multiple languages
+    const translations = {
+      "English": {
+        loginTitle: "Login",
+        userLabel: "User ID:",
+        passLabel: "Password:",
+        loginBtn: "Login",
+        signupText: 'Don\'t have an account? <a href="signup.html">Sign Up</a>'
+      },
+      "Malayalam": {
+        loginTitle: "ലോഗിൻ",
+        userLabel: "ഉപയോക്തൃ ഐഡി:",
+        passLabel: "പാസ്സ്‌വേർഡ്:",
+        loginBtn: "ലോഗിൻ",
+        signupText: 'അക്കൗണ്ട് ഇല്ലേ? <a href="signup.html">സൈൻ അപ്പ് ചെയ്യുക</a>'
+      },
+      "Hindi": {
+        loginTitle: "लॉगिन",
+        userLabel: "उपयोगकर्ता आईडी:",
+        passLabel: "पासवर्ड:",
+        loginBtn: "लॉगिन",
+        signupText: 'खाता नहीं है? <a href="signup.html">साइन अप करें</a>'
+      },
+      "Telugu": {
+        loginTitle: "లాగిన్",
+        userLabel: "వాడుకరి ఐడి:",
+        passLabel: "పాస్వర్డ్:",
+        loginBtn: "లాగిన్",
+        signupText: 'ఖాతా లేనిది? <a href="signup.html">సైన్ అప్ చేయండి</a>'
+      },
+      "Tamil": {
+        loginTitle: "உள்நுழையவும்",
+        userLabel: "பயனர் ஐடி:",
+        passLabel: "கடவுச்சொல்:",
+        loginBtn: "உள்நுழையவும்",
+        signupText: 'கணக்கு இல்லையா? <a href="signup.html">சைன் அப் செய்யவும்</a>'
+      }
+    };
+
+    // Read selected language from localStorage
+    const lang = localStorage.getItem("selectedLanguage") || "English";
+    const t = translations[lang];
+
+    // Update text dynamically
+    document.getElementById("loginTitle").innerText = t.loginTitle;
+    document.getElementById("userLabel").innerText = t.userLabel;
+    document.getElementById("passLabel").innerText = t.passLabel;
+    document.getElementById("loginBtn").innerText = t.loginBtn;
+    document.getElementById("signupText").innerHTML = t.signupText;
+  </script>
+</body>
+</html>
+

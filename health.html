@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Health Management System</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🌿 Digital Health Management System</h1>
+
+        <label for="Language">Select your Language:- </label>
+        <select name="Language" id="Language">
+            <option value="Malayalam">Malayalam</option>
+            <option value="English" selected>English</option>
+            <option value="Hindi">Hindi</option>
+            <option value="Telugu">Telugu</option>
+            <option value="Tamil">Tamil</option>
+        </select>
+
+        <br><br>
+        <!-- Added id="nextBtn" for JS -->
+        <a href="login.html" class="next-button" id="nextBtn">NEXT</a>
+    </div>
+
+    <script>
+        // Save selected language and navigate to login page
+        document.getElementById("nextBtn").addEventListener("click", function(event) {
+            event.preventDefault(); // prevent immediate navigation
+            const lang = document.getElementById("Language").value;
+            localStorage.setItem("selectedLanguage", lang); // save selected language
+            window.location.href = "login.html"; // navigate after saving
+        });
+    </script>
+</body>
+</html>
